@@ -56,7 +56,12 @@ module.exports = [
     method: 'GET',
     path: '/{param*}',
     config: {
-      plugins: { 'hapi-spa': { handler: {'file', Path.join(__dirname, './public/index.html')} } },
+      plugins: {
+        'hapi-spa': {
+          method: 'file',
+          args: [Path.join(__dirname, './public/index.html')]
+        }
+      },
       handler: {
         directory: { path: Path.join(__dirname, './public') }
       }
