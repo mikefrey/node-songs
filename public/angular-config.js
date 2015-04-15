@@ -1,20 +1,18 @@
 // Define the module for our AngularJS application.
-var app = angular.module( "app", [] );
+var app = angular.module( "app", [] )
 
 // I control the main demo.
 app.controller(
 	"SongsController",
-	function( $scope, songService ) {
+	function( $scope, SongService ) {
 
 		// I contain the list of songs to be rendered.
-		$scope.songs = [];
+		$scope.songs = []
 
 		// I contain the ngModel values for form interaction.
-		$scope.form = {
-			name: ""
-		};
+		$scope.form = {}
 
-		loadRemoteData();
+		loadRemoteData()
 		// ---
 		// PUBLIC METHODS.
 		// ---
@@ -27,16 +25,15 @@ app.controller(
 			// at which point we can tell the user that something went wrong. In
 			// this case, I'm just logging to the console to keep things very
 			// simple for the demo.
-			songService.addSong( $scope.form.name ).then(
-				loadRemoteData,function( errorMessage ) {
-					console.warn( errorMessage );
-				}
-			);
+			SongService.addSong($scope.form).then(
+				function() {
+					loadRemoteData()
 
-			// Reset the form once values have been consumed.
-			$scope.form.name = "";
+					// Reset the form once values have been consumed.
+					$scope.form = {}
+				}, console.warn.bind(console))
 
-		};
+		}
 
 
 		// I remove the given friend from the current collection.
@@ -44,11 +41,11 @@ app.controller(
 
 			// Rather than doing anything clever on the client-side, I'm just
 			// going to reload the remote data.
-			songService.removeSong( friend.id )
+			SongService.removeSong( friend.id )
 				.then( loadRemoteData )
-			;
+			
 
-		};
+		}
 
 
 		// ---
@@ -58,26 +55,26 @@ app.controller(
 
 		// I apply the remote data to the local scope.
 		function applyRemoteData( newsongs ) {
-			$scope.songs = newsongs;
+			$scope.songs = newsongs
 		}
 
 
 		// I load the remote data from the server.
 		function loadRemoteData() {
 
-			// The songService returns a promise.
-			songService.getsongs()
+			// The SongService returns a promise.
+			SongService.getSongs()
 				.then(
 					function( songs ) {
-						applyRemoteData( songs );
+						applyRemoteData( songs )
 					}
 				)
-			;
+			
 
 		}
 
 	}
-);
+)
 
 
 // -------------------------------------------------- //
@@ -92,9 +89,9 @@ app.service(
 		// Return public API.
 		return({
 			addSong: addSong,
-			getsongs: getsongs,
+			getSongs: getSongs,
 			removeSong: removeSong
-		});
+		})
 
 
 		// ---
@@ -102,37 +99,35 @@ app.service(
 		// ---
 
 
-		// I add a friend with the given name to the remote collection.
-		function addSong( name ) {
+		// I add a friend with the given title to the remote collection.
+		function addSong( data ) {
 
 			var request = $http({
 				method: "post",
-				url: "api/index.cfm",
+				url: "api/songs",
 				params: {
 					action: "add"
 				},
-				data: {
-					name: name
-				}
-			});
+				data: data
+			})
 
-			return( request.then( handleSuccess, handleError ) );
+			return( request.then( handleSuccess, handleError ) )
 
 		}
 
 
 		// I get all of the songs in the remote collection.
-		function getsongs() {
+		function getSongs() {
 
 			var request = $http({
 				method: "get",
-				url: "api/index.cfm",
+				url: "api/songs",
 				params: {
 					action: "get"
 				}
-			});
+			})
 
-			return( request.then( handleSuccess, handleError ) );
+			return( request.then( handleSuccess, handleError ) )
 
 		}
 
@@ -142,16 +137,16 @@ app.service(
 
 			var request = $http({
 				method: "delete",
-				url: "api/index.cfm",
+				url: "api/songs",
 				params: {
 					action: "delete"
 				},
 				data: {
 					id: id
 				}
-			});
+			})
 
-			return( request.then( handleSuccess, handleError ) );
+			return( request.then( handleSuccess, handleError ) )
 
 		}
 
@@ -174,12 +169,12 @@ app.service(
 				! response.data.message
 				) {
 
-				return( $q.reject( "An unknown error occurred." ) );
+				return( $q.reject( "An unknown error occurred." ) )
 
 			}
 
 			// Otherwise, use expected error message.
-			return( $q.reject( response.data.message ) );
+			return( $q.reject( response.data.message ) )
 
 		}
 
@@ -188,9 +183,9 @@ app.service(
 		// from the API response payload.
 		function handleSuccess( response ) {
 
-			return( response.data );
+			return( response.data )
 
 		}
 
 	}
-);
+)
