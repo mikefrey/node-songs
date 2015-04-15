@@ -12,6 +12,9 @@ server.register([
         events: [{ log: '*', request: '*', response: '*' }]
       }]
     }
+  },
+  {
+    register: require('./plugins/hapi-spa')
   }
 ], function(err) {
 
