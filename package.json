@@ -15,5 +15,12 @@
   "bugs": {
     "url": "https://github.com/mikefrey/node-songs/issues"
   },
-  "homepage": "https://github.com/mikefrey/node-songs"
+  "homepage": "https://github.com/mikefrey/node-songs",
+  "dependencies": {
+    "good": "^6.1.0",
+    "good-console": "^5.0.0",
+    "hapi": "^8.4.0",
+    "lodash": "^3.6.0",
+    "mongoose": "^4.0.1"
+  }
 }
