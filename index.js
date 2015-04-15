@@ -9,7 +9,7 @@ server.register([
     options: {
       reporters: [{
         reporter: require('good-console'),
-        events: [{ log: '*', request: '*', response: '*' }]
+        events: { log: '*', request: '*', response: '*' }
       }]
     }
   },
