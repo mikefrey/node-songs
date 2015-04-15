@@ -8,15 +8,8 @@ module.exports = [
     path: '/api/songs',
     config: {
       handler: function(request, reply) {
-
         songsdb.get(request, reply);
-
       }
-      /*
-      handler: function(request, reply) {
-        reply([])
-      }
-      */
     }
   },
 
@@ -25,7 +18,7 @@ module.exports = [
     path: '/api/songs/{id}',
     config: {
       handler: function(request, reply) {
-        reply({})
+        songsdb.read(request, reply);
       }
     }
   },
@@ -36,10 +29,7 @@ module.exports = [
     config: {
       payload: {output: "data", parse: true},
       handler: function(request, reply) {
-        console.log("create");
         songsdb.create(request, reply);
-        console.log("create done");
-//        reply({})
       }
     }
   },

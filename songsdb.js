@@ -52,10 +52,22 @@ function create(request, reply) {
 	}
 }
 
+function read(request, reply) {
+	if(Song) {
+		Song.find({_id: request.params.id}, function(err, song) {
+			if(err) {
+				reply("error");
+				return;
+			}
+			reply(song);
+		});
+	}
+}
+
 module.exports = {
 	get: get,
-	create: create
-
+	create: create,
+	read: read
 };
 
 
