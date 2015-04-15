@@ -1,4 +1,5 @@
 var Path = require('path')
+var songsdb = require('./songsdb');
 
 module.exports = [
 
@@ -7,8 +8,15 @@ module.exports = [
     path: '/api/songs',
     config: {
       handler: function(request, reply) {
+
+        songsdb.get(request, reply);
+
+      }
+      /*
+      handler: function(request, reply) {
         reply([])
       }
+      */
     }
   },
 
@@ -26,8 +34,12 @@ module.exports = [
     method: ['POST', 'PUT'],
     path: '/api/songs',
     config: {
+      payload: {output: "data", parse: true},
       handler: function(request, reply) {
-        reply({})
+        console.log("create");
+        songsdb.create(request, reply);
+        console.log("create done");
+//        reply({})
       }
     }
   },
