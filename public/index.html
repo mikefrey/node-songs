@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+	<meta charset="UTF-8">
+	<title>Test</title>
+	<script src='bower_components/angular/angular.js'></script>
+	<script src='angular-config.js'></script>
+</head>
+<body>
+	<div ng-controller='SongsController'>
+		<form>
+      <label>Title:  <input type="text" ng-model="form.title"></label>
+      <label>Artist: <input type="text" ng-model="form.artist"></label>
+      <label>Album:  <input type="text" ng-model="form.album"></label>
+      <label>Year:   <input type="text" ng-model="form.year"></label>
+      <button ng-click="addSong()">Add Song</button>
+    </form>
+	</div>
+</body>
+</html>
