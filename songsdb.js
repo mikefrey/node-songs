@@ -14,9 +14,8 @@ db.once('open', function (callback) {
 		title: String,
 		artist: String,
 		track: String,
-		year: String,
-		v1: Buffer,
-		v2: Buffer
+		album: String,
+		year: String
 	});
 	Song = mongoose.model('Song', schema);
 
@@ -42,6 +41,7 @@ function create(request, reply) {
 				title: request.payload.title, 
 				artist: request.payload.artist,
 				track: request.payload.track,
+				album: request.payload.album,
 				year: request.payload.year});
 		console.log("song created - payload == " + JSON.stringify(request.payload));
 		song.save(function(err) {
