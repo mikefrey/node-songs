@@ -49,11 +49,11 @@ app.controller(
 
 
 		// I remove the given song from the current collection.
-		$scope.removeSong = function( song ) {
+		$scope.deleteSong = function( song ) {
 
 			// Rather than doing anything clever on the client-side, I'm just
 			// going to reload the remote data.
-			SongService.removeSong( song.id )
+			SongService.deleteSong( song._id )
 				.then( loadRemoteData )
 			
 
@@ -95,7 +95,7 @@ app.service(
 		return({
 			addSong: addSong,
 			getSongs: getSongs,
-			removeSong: removeSong
+			deleteSong: deleteSong
 		})
 
 
@@ -110,9 +110,6 @@ app.service(
 			var request = $http({
 				method: "post",
 				url: "api/songs",
-				params: {
-					action: "add"
-				},
 				data: data
 			})
 
@@ -126,10 +123,7 @@ app.service(
 
 			var request = $http({
 				method: "put",
-				url: "api/songs/" + data.id,
-				params: {
-					action: "add"
-				},
+				url: "api/songs/" + data._id,
 				data: data
 			})
 
@@ -143,10 +137,7 @@ app.service(
 
 			var request = $http({
 				method: "get",
-				url: "api/songs",
-				params: {
-					action: "get"
-				}
+				url: "api/songs"
 			})
 
 			return( request.then( handleSuccess, handleError ) )
@@ -154,15 +145,12 @@ app.service(
 		}
 
 
-		// I remove the song with the given ID from the remote collection.
-		function removeSong( id ) {
+		// I remove the song with the given _ID from the remote collection.
+		function deleteSong( _id ) {
 
 			var request = $http({
 				method: "delete",
-				url: "api/songs/" + id,
-				params: {
-					action: "delete"
-				}
+				url: "api/songs/" + _id
 			})
 
 			return( request.then( handleSuccess, handleError ) )
