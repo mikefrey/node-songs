@@ -49,7 +49,7 @@ module.exports = [
     path: '/api/songs/{id}',
     config: {
       handler: function(request, reply) {
-        reply({})
+        songsdb.destroy(request, reply)
       }
     }
   },

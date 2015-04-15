@@ -64,10 +64,21 @@ function read(request, reply) {
 	}
 }
 
+function destroy(request, reply) {
+	var id = request.params.id
+	Song.findOne({_id:id}, function(err, song) {
+		song.remove(function(err) {
+			if (err) return reply(err)
+			reply({id:id})
+		})
+	})
+}
+
 module.exports = {
 	get: get,
 	create: create,
-	read: read
+	read: read,
+	destroy: destroy
 };
 
 
