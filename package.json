@@ -1,0 +1,19 @@
+{
+  "name": "node-songs",
+  "version": "1.0.0",
+  "description": "Yeay!",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mikefrey/node-songs.git"
+  },
+  "author": "Mike Frey <frey.mike@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mikefrey/node-songs/issues"
+  },
+  "homepage": "https://github.com/mikefrey/node-songs"
+}
