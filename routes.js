@@ -4,7 +4,7 @@ module.exports = [
 
   { // Index
     method: 'GET',
-    path: '/songs',
+    path: '/api/songs',
     config: {
       handler: function(request, reply) {
         reply([])
@@ -14,7 +14,7 @@ module.exports = [
 
   { // Read
     method: 'GET',
-    path: '/songs/{id}',
+    path: '/api/songs/{id}',
     config: {
       handler: function(request, reply) {
         reply({})
@@ -24,7 +24,7 @@ module.exports = [
 
   { // Create
     method: ['POST', 'PUT'],
-    path: '/songs',
+    path: '/api/songs',
     config: {
       handler: function(request, reply) {
         reply({})
@@ -34,7 +34,7 @@ module.exports = [
 
   { // Update
     method: ['POST', 'PUT'],
-    path: '/songs/{id}',
+    path: '/api/songs/{id}',
     config: {
       handler: function(request, reply) {
         reply({})
@@ -44,7 +44,7 @@ module.exports = [
 
   {
     method: 'DELETE',
-    path: '/songs/{id}',
+    path: '/api/songs/{id}',
     config: {
       handler: function(request, reply) {
         reply({})
