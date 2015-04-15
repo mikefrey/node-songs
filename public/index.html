@@ -8,12 +8,20 @@
 </head>
 <body>
 	<div ng-controller='SongsController'>
-		<form>
+    <form>
       <label>Title:  <input type="text" ng-model="form.title"></label>
       <label>Artist: <input type="text" ng-model="form.artist"></label>
       <label>Album:  <input type="text" ng-model="form.album"></label>
       <label>Year:   <input type="text" ng-model="form.year"></label>
       <button ng-click="addSong()">Add Song</button>
+    </form>
+    <form ng-repeat="song in songs">
+      <label>Title:  <input type="text" ng-model="song.title"></label>
+      <label>Artist: <input type="text" ng-model="song.artist"></label>
+      <label>Album:  <input type="text" ng-model="song.album"></label>
+      <label>Year:   <input type="text" ng-model="song.year"></label>
+      <button ng-click="updateSong(song)">Update Song</button>
+      <button ng-click="deleteSong(song)">Delete Song</button>
     </form>
 	</div>
 </body>

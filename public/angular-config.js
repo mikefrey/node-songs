@@ -18,7 +18,7 @@ app.controller(
 		// ---
 
 
-		// I process the add-friend form.
+		// I process the add-song form.
 		$scope.addSong = function() {
 
 			// If the data we provide is invalid, the promise will be rejected,
@@ -36,12 +36,24 @@ app.controller(
 		}
 
 
-		// I remove the given friend from the current collection.
-		$scope.removeSong = function( friend ) {
+		// I update the given song from the current collection.
+		$scope.updateSong = function( song ) {
 
 			// Rather than doing anything clever on the client-side, I'm just
 			// going to reload the remote data.
-			SongService.removeSong( friend.id )
+			SongService.updateSong( song )
+				.then( loadRemoteData )
+			
+
+		}
+
+
+		// I remove the given song from the current collection.
+		$scope.removeSong = function( song ) {
+
+			// Rather than doing anything clever on the client-side, I'm just
+			// going to reload the remote data.
+			SongService.removeSong( song.id )
 				.then( loadRemoteData )
 			
 
@@ -52,13 +64,6 @@ app.controller(
 		// PRIVATE METHODS.
 		// ---
 
-
-		// I apply the remote data to the local scope.
-		function applyRemoteData( newsongs ) {
-			$scope.songs = newsongs
-		}
-
-
 		// I load the remote data from the server.
 		function loadRemoteData() {
 
@@ -66,7 +71,7 @@ app.controller(
 			SongService.getSongs()
 				.then(
 					function( songs ) {
-						applyRemoteData( songs )
+						$scope.songs = songs
 					}
 				)
 			
@@ -81,7 +86,7 @@ app.controller(
 // -------------------------------------------------- //
 
 
-// I act a repository for the remote friend collection.
+// I act a repository for the remote song collection.
 app.service(
 	"SongService",
 	function( $http, $q ) {
@@ -99,12 +104,29 @@ app.service(
 		// ---
 
 
-		// I add a friend with the given title to the remote collection.
+		// I add a song with the given title to the remote collection.
 		function addSong( data ) {
 
 			var request = $http({
 				method: "post",
 				url: "api/songs",
+				params: {
+					action: "add"
+				},
+				data: data
+			})
+
+			return( request.then( handleSuccess, handleError ) )
+
+		}
+
+
+		// I add a song with the given title to the remote collection.
+		function updateSong( data ) {
+
+			var request = $http({
+				method: "put",
+				url: "api/songs/" + data.id,
 				params: {
 					action: "add"
 				},
@@ -132,17 +154,14 @@ app.service(
 		}
 
 
-		// I remove the friend with the given ID from the remote collection.
+		// I remove the song with the given ID from the remote collection.
 		function removeSong( id ) {
 
 			var request = $http({
 				method: "delete",
-				url: "api/songs",
+				url: "api/songs/" + id,
 				params: {
 					action: "delete"
-				},
-				data: {
-					id: id
 				}
 			})
 
