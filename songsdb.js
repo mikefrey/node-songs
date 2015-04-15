@@ -38,7 +38,11 @@ function get(request, reply) {
 
 function create(request, reply) {
 	if(Song) {
-		var song = new Song({title: request.payload.title});
+		var song = new Song({
+				title: request.payload.title, 
+				artist: request.payload.artist,
+				track: request.payload.track,
+				year: request.payload.year});
 		console.log("song created - payload == " + JSON.stringify(request.payload));
 		song.save(function(err) {
 			if(err) {
